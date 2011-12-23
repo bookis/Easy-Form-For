@@ -34,7 +34,7 @@ module EasyFormFor
         type = "select"
         class_name = key.split(/_id/).first
         attribute = @options[:associations][class_name.to_sym] ||= 'name' if @options[:associations] && @options[:associations][class_name.to_sym]
-        selects = options_for_select(Kernel.const_get(class_name.camelcase).order('name asc').map{|k| [k.send(attribute || 'name'), k.id]})
+        selects = options_for_select(Kernel.const_get(class_name.camelcase).order("#{attribute || 'name'} asc").map{|k| word = k.send(attribute || 'name'); [word.first.upcase == word.first ? word : word.titleize, k.id]})
         args[:class] = @options[:classes][:fields] if @options[:classes] && @options[:classes][:fields]
         if @options[:field_options] && @options[:field_options][key.to_sym]
           if @options[:field_options][key.to_sym][:class]
@@ -95,11 +95,11 @@ module EasyFormFor
     end
     
     def only_keys
-      [@options[:only]].flatten.map { |key| key.to_s  }
+      [@options[:only]].flatten.compact.map { |key| key.to_s  }
     end
     
     def except_keys
-      excluded_keys = (EXCLUDE_KEYS + [@options[:except]]).flatten.map{|k| k.to_s}
+      excluded_keys = (EXCLUDE_KEYS + [@options[:except]]).flatten.compact.map{|k| k.to_s}
       attrs = @object.attributes.keys.delete_if { |key| excluded_keys.include? key.to_s }
     end
     
