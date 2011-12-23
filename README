@@ -1,0 +1,49 @@
+Working on a rails form generator. As easy as:
+
+<%= easy_form_for(@user) %>
+
+or as advanced as:
+
+<%= easy_form_for(@user,
+                  :only => [:name, (:username if @user.username.blank?), :email, :birthday, :city, :state_id, :zipcode, :country_id, :bio, :diet_id, :me_gender, :you_gender],
+                  :field_options => {
+                    :email    => {:type => "email", :autocapitalize => "off"},
+                    :submit   => {:disable_with => "Saving&hellip;".html_safe, :class => "button white full"},
+                    :birthday => {
+                      :order         => [:month, :day, :year],
+                      :start_year    => 12.years.ago.year,
+                      :end_year      => 60.years.ago.year,
+                      :include_blank => true},
+                    :me_gender  => {:label => "My Gender"},
+                    :you_gender => {:label => "Desired Gender"}
+                  }) do |f| %>
+
+  <%= f.label :label_id, "My Straightedginess" %>
+  <table id="my-label">
+    <% Label.all.each do |label| %>
+      <tr>
+        <td><%= f.radio_button :label_id,              label.id, :checked => @user.label == label %></td>
+        <th><%= f.label        "label_id_#{label.id}", label.name.titleize %></th>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= f.label :your_labels_attributes, "Desired Straightedginess" %>
+  <table id="desired-labels">
+    <% Label.all.each_with_index do |label, index| %>
+      <%= f.fields_for "your_labels_attributes[#{index}]", :child_index => index do |ff| %>
+        <tr>
+          <% if @user.desired_labels.include? label %>
+            <%# HACK remove find from view, do it in the controller %>
+            <%= ff.hidden_field :id, :value => @user.your_labels.where(:label_id => label.id).first.id, :style => "display:none" %>
+            <td><%= ff.check_box :_destroy, { :checked => true }, 0, 1 %></td>
+            <th><%= ff.label     :_destroy, label.name.titleize %></th>
+          <% else %>
+            <td><%= ff.check_box :label_id, {}, label.id %></td>
+            <th><%= ff.label     :label_id, label.name.titleize %></th>
+          <% end %>
+        </th>
+      <% end %>
+    <% end %>
+  </table>
+<% end %>
