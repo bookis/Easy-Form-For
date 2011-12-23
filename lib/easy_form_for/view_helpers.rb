@@ -43,7 +43,7 @@ module EasyFormFor
           end
           args.merge!(@options[:field_options][key.to_sym]) 
         end
-        
+        concat f.label(key.to_sym, class_name.to_s.capitalize)
         concat f.send(type, key.to_sym, selects, {}, args)
       else
         type = case object.class.columns_hash[key].type
