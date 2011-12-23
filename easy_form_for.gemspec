@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = EasyFormFor::VERSION
   s.authors     = ["Bookis Smuin"]
   s.email       = ["vegan.bookis@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/bookis/Easy-Form-For"
   s.summary     = %q{Easy Rails form generation}
   s.description = %q{Just use easy_form_for(MyModel) to generate a form for an object}
 
