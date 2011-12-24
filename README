@@ -1,3 +1,8 @@
+TODO:
+  - Create real README
+  - Create Docs
+  - yield block in multiple places from block
+
 Working on a rails form generator. As easy as:
 
 <%= easy_form_for(@user) %>
