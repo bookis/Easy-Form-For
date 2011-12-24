@@ -1,7 +1,8 @@
 TODO:
   - Create real README
   - Create Docs
-  - yield block in multiple places from block
+  - yield block in multiple places from block (possible?)
+  - put tests in this project (right now they are at https://github.com/bookis/easy_form_for_specs)
 
 Working on a rails form generator. As easy as:
 
