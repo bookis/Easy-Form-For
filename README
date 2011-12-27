@@ -1,6 +1,9 @@
 TODO:
   - Create real README
   - Create Docs
+  - Refactor
+  - Refactor
+  - Refactor
   - yield block in multiple places from block (possible?)
   - put tests in this project (right now they are at https://github.com/bookis/easy_form_for_specs)
 
