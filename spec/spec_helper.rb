@@ -1,11 +1,22 @@
-require 'rubygems'
-require 'bundler/setup'
-require 'rails/all'
-require 'sqlite3'
+require 'easy_form_for'
+require 'supermodel'
+require 'active_model'
+require 'action_controller'
+require 'action_view'
+require 'action_view/template'
+include ActionView::Helpers
 
-module SpecApp
-  class Application < ::Rails::Application
+module EasyFormFor
+  class ViewHelpers
+    
+    def blog_path(*args)
+      "/blogs"
+    end
+    def output_buffer=(*args)
+      ""
+    end
+    def output_buffer(*args)
+      ""
+    end
   end
 end
-
-require 'rspec/rails'
